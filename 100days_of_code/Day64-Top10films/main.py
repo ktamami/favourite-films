@@ -6,7 +6,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import URL, NumberRange
 from dotenv import load_dotenv
-from waitress import serve
 import os
 
 load_dotenv()
@@ -110,6 +109,5 @@ def delete(film_id):
 
 
 if __name__ == '__main__':
-    # app.run()
-    serve(app)
+    app.run()
 
