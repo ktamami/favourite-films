@@ -111,5 +111,6 @@ def delete(film_id):
 
 if __name__ == '__main__':
     # app.run()
-    serve(app)
+    port = os.environ.get("PORT")
+    serve(app, port=port)
 
