@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -6,9 +8,11 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import URL, NumberRange
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ.get("SECRET")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///top10films.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
@@ -107,4 +111,4 @@ def delete(film_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
