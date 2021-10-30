@@ -4,4 +4,4 @@ web: waitress-serve \
     --trusted-proxy-headers 'x-forwarded-for x-forwarded-proto x-forwarded-port' \
     --log-untrusted-proxy-headers \
     --clear-untrusted-proxy-headers \
-    myapp:wsgifunc
+    app:main
