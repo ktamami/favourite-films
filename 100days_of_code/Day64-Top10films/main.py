@@ -111,5 +111,5 @@ def delete(film_id):
 
 if __name__ == '__main__':
     # app.run()
-    serve(app, port=8000)
+    serve(app)
 
