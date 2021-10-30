@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -9,6 +7,7 @@ from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import URL, NumberRange
 from dotenv import load_dotenv
 import os
+from waitress import serve
 
 load_dotenv()
 app = Flask(__name__)
@@ -111,4 +110,6 @@ def delete(film_id):
 
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+    serve(app)
+
