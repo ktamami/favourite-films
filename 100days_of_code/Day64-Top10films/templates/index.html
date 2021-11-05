@@ -10,7 +10,7 @@
 <link rel="icon" href="../static/pizza_icon.ico">
 {% endblock %}
 
-{% block title %}Tamami's Top 10 films{% endblock %}
+{% block title %}Tamami's favourite films{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -31,8 +31,10 @@
         </div>
           <p class="review">"{{ film.review }}"</p>
         <p class="overview">{{ film.description }}</p>
+            {% if admin: %}
         <a href="{{ url_for('edit', film_id=film.id) }}" class="button each-item-button">Update</a>
         <a href="{{ url_for('delete', film_id=film.id) }}" class="button delete-button each-item-button">Delete</a>
+            {% endif %}
     </div>
         </div>
   </div>
@@ -40,7 +42,11 @@
 </div>
 
 <div class="container text-center add">
+    {% if admin: %}
 <a href="{{ url_for('add') }}" class="button">Add Movie</a>
+    <a href="{{ url_for('logout') }}">logout</a>
+
+    {% endif %}
 </div>
 
 {% endblock %}

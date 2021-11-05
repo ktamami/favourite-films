@@ -8,11 +8,13 @@ from wtforms.validators import URL, NumberRange
 from dotenv import load_dotenv
 import os
 
+
 load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///top10films.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+admin_pass = "ADMIN_PASS"
 db = SQLAlchemy(app)
 Bootstrap(app)
 
@@ -69,7 +71,13 @@ def add():
         )
         db.session.add(new_film)
         db.session.commit()
-        return redirect(url_for('home'))
+        all_films = db.session.query(Film).order_by(desc(Film.rating)).all()
+        n = 0
+        for film in all_films:
+            film.ranking = n + 1
+            db.session.commit()
+            n += 1
+        return render_template("index.html", films=all_films, admin=True)
     return render_template("add.html", form=form)
 
 @app.route("/edit/<film_id>", methods=["GET", "POST"])
@@ -95,7 +103,13 @@ def edit(film_id):
         if request.form.get("img_url") != "":
             update.img_url = request.form.get("img_url")
             db.session.commit()
-        return redirect(url_for('home'))
+        all_films = db.session.query(Film).order_by(desc(Film.rating)).all()
+        n = 0
+        for film in all_films:
+            film.ranking = n + 1
+            db.session.commit()
+            n += 1
+        return render_template("index.html", films=all_films, admin=True)
     update_film = Film.query.filter_by(id=film_id).first()
     return render_template("edit.html", film=update_film, form=form)
 
@@ -105,9 +119,31 @@ def delete(film_id):
     delete_film = Film.query.get(film_id)
     db.session.delete(delete_film)
     db.session.commit()
-    return redirect(url_for("home"))
+    all_films = db.session.query(Film).order_by(desc(Film.rating)).all()
+    n = 0
+    for film in all_films:
+        film.ranking = n + 1
+        db.session.commit()
+        n += 1
+    return render_template("index.html", films=all_films, admin=True)
 
+@app.route("/ad/<login>")
+def login(login):
+    print(os.environ.get(admin_pass))
+    if login == os.environ.get(admin_pass):
+        all_films = db.session.query(Film).order_by(desc(Film.rating)).all()
+        n = 0
+        for film in all_films:
+            film.ranking = n + 1
+            db.session.commit()
+            n += 1
+        return render_template("index.html", films=all_films, admin=True)
+    else:
+        return render_template(url_for("home"))
+
+@app.route("/")
+def logout():
+    return redirect(url_for("home", admin=False))
 
 if __name__ == '__main__':
-    app.run()
-
+    app.run(host='0.0.0.0', port=5000)

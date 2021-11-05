@@ -213,13 +213,14 @@
 	 font-weight: normal;
 }
 
+/*
+
 .each-item-button {
 backface-visibility: hidden;
 -webkit-backface-visibility: hidden;
 }
 
-/**/
 .button {
 visibility: hidden;
-
 }
+*/
