@@ -12,7 +12,7 @@ import os
 load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///top10films.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 admin_pass = "ADMIN_PASS"
 db = SQLAlchemy(app)
@@ -129,7 +129,6 @@ def delete(film_id):
 
 @app.route("/ad/<login>")
 def login(login):
-    print(os.environ.get(admin_pass))
     if login == os.environ.get(admin_pass):
         all_films = db.session.query(Film).order_by(desc(Film.rating)).all()
         n = 0
