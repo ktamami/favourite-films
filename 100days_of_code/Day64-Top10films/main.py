@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-admin_pass = "ADMIN_PASS"
+admin_pass = os.environ.get("ADMIN_PASS")
 db = SQLAlchemy(app)
 Bootstrap(app)
 
@@ -129,7 +129,7 @@ def delete(film_id):
 
 @app.route("/ad/<login>")
 def login(login):
-    if login == os.environ.get(admin_pass):
+    if login == admin_pass:
         all_films = db.session.query(Film).order_by(desc(Film.rating)).all()
         n = 0
         for film in all_films:
