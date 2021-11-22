@@ -12,7 +12,7 @@ import os
 load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///top10films.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 admin_pass = os.environ.get("ADMIN_PASS")
 db = SQLAlchemy(app)
