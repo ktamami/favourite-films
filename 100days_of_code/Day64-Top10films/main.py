@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import desc, create_engine
+from sqlalchemy import desc
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import URL, NumberRange
@@ -12,7 +12,7 @@ import os
 load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = create_engine(os.environ.get("DATABASE_URL", "sqlite:///top10films.db"))
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL1", "sqlite:///top10films.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 admin_pass = os.environ.get("ADMIN_PASS")
 db = SQLAlchemy(app)
