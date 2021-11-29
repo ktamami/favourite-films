@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FloatField
+from wtforms import IntegerField, StringField, SubmitField, FloatField
 from wtforms.validators import URL, NumberRange
 from dotenv import load_dotenv
 import os
