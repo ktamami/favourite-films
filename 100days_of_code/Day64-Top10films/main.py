@@ -35,7 +35,7 @@ class Film(db.Model):
     title = db.Column(db.String(250), nullable=False)
     year = db.Column(db.String(250), nullable=False)
     description = db.Column(db.String(250), nullable=False)
-    rating = db.Column(db.Float(10, 10), nullable=False)
+    rating = db.Column(db.Float(10, 1), nullable=False)
     ranking = db.Column(db.Integer, nullable=False)
     review = db.Column(db.String(250), nullable=False)
     img_url = db.Column(db.String(1000), nullable=False)
