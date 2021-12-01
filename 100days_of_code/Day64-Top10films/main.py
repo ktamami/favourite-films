@@ -12,7 +12,8 @@ import os
 load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL1")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    "DATABASE_URL1", "sqlite:///top10films.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 admin_pass = os.environ.get("ADMIN_PASS")
 db = SQLAlchemy(app)
@@ -35,7 +36,7 @@ class Film(db.Model):
     title = db.Column(db.String(250), nullable=False)
     year = db.Column(db.String(250), nullable=False)
     description = db.Column(db.String(250), nullable=False)
-    rating = db.Column(db.Float(10, 1), nullable=False)
+    rating = db.Column(db.Float(1, 1), nullable=False)
     ranking = db.Column(db.Integer, nullable=False)
     review = db.Column(db.String(250), nullable=False)
     img_url = db.Column(db.String(1000), nullable=False)
@@ -155,4 +156,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug="True", host='0.0.0.0', port=5000)
