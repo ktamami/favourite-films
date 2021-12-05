@@ -64,7 +64,7 @@ def add():
         add_year = request.form.get("year")
         add_img_url = request.form.get("img_url")
         add_ranking = 0
-        add_rating = request.form.get("rating")
+        add_rating = round(request.form.get("rating"), 1)
         add_description = request.form.get("description")
         add_review = request.form.get("review")
         new_film = Film(
@@ -103,7 +103,7 @@ def edit(film_id):
             update.description = request.form.get("description")
             db.session.commit()
         if request.form.get("rating") != "":
-            update.rating = request.form.get("rating")
+            update.rating = round(request.form.get("rating"),1)
             db.session.commit()
         if request.form.get("review") != "":
             update.review = request.form.get("review")
