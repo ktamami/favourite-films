@@ -36,7 +36,7 @@ class Film(db.Model):
     title = db.Column(db.String(250), nullable=False)
     year = db.Column(db.String(250), nullable=False)
     description = db.Column(db.String(250), nullable=False)
-    rating = db.Column(db.Float(1, 1), nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
     ranking = db.Column(db.Integer, nullable=False)
     review = db.Column(db.String(250), nullable=False)
     img_url = db.Column(db.String(1000), nullable=False)
@@ -48,6 +48,7 @@ db.create_all()
 @app.route("/")
 def home():
     all_films = db.session.query(Film).order_by(desc(Film.rating)).all()
+    print(all_films)
     n = 0
     for film in all_films:
         film.ranking = n + 1
@@ -64,7 +65,7 @@ def add():
         add_year = request.form.get("year")
         add_img_url = request.form.get("img_url")
         add_ranking = 0
-        add_rating = round(request.form.get("rating"), 1)
+        add_rating = request.form.get("rating")
         add_description = request.form.get("description")
         add_review = request.form.get("review")
         new_film = Film(
@@ -103,7 +104,7 @@ def edit(film_id):
             update.description = request.form.get("description")
             db.session.commit()
         if request.form.get("rating") != "":
-            update.rating = round(request.form.get("rating"),1)
+            update.rating = request.form.get("rating")
             db.session.commit()
         if request.form.get("review") != "":
             update.review = request.form.get("review")
