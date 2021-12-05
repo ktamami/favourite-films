@@ -35,11 +35,11 @@ class Film(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), nullable=False)
     year = db.Column(db.String(250), nullable=False)
-    description = db.Column(db.String(250), nullable=False)
+    description = db.Column(db.String(2500), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     ranking = db.Column(db.Integer, nullable=False)
-    review = db.Column(db.String(250), nullable=False)
-    img_url = db.Column(db.String(1000), nullable=False)
+    review = db.Column(db.String(500), nullable=False)
+    img_url = db.Column(db.String(2500), nullable=False)
 
 
 db.create_all()
